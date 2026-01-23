@@ -27,7 +27,7 @@ export function About() {
                     </div>
                     <div className="relative aspect-square md:aspect-[4/5] bg-neutral-200 rounded-2xl overflow-hidden border border-neutral-300/20">
                         <Image
-                            src="/images/sections/training.jpg"
+                            src="/images/hero/club.jpg"
                             alt="Training"
                             fill
                             className="object-cover"

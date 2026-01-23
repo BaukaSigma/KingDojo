@@ -27,7 +27,7 @@ export function Coach() {
                 >
                     <motion.div style={{ y }} className="absolute inset-0 w-full h-[120%] -top-[10%]">
                         <Image
-                            src="/images/sections/coach.jpg"
+                            src="/images/hero/trainer.jpg"
                             alt="Санжар Кине"
                             fill
                             className="object-cover opacity-90 grayscale-[20%]"
