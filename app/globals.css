@@ -6,19 +6,19 @@
 /* Premium Dark Theme Tokens */
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    /* Deep Black/Gray */
+    --background: 0 0% 4.3%;
+    /* #0B0B0B */
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 7%;
+    --card: 0 0% 6%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 7%;
+    --popover: 0 0% 6%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 20 100% 55%;
-    /* Strong Vibrant Orange */
-    --primary-foreground: 0 0% 100%;
+    --primary: 358 81.5% 38.2%;
+    /* #B11217 - Deep Red */
+    --primary-foreground: 0 0% 98%;
 
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 98%;
@@ -26,32 +26,35 @@
     --muted: 0 0% 12%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 0 0% 12%;
+    --accent: 358 81.5% 38.2%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 20 100% 55%;
+    --ring: 358 81.5% 38.2%;
 
-    --radius: 0.5rem;
+    --radius: 0rem;
+    /* Brutalist = no rounded corners */
   }
 
   /* Force dark mode by default everywhere for this design */
   .dark {
-    --background: 0 0% 4%;
+    --background: 0 0% 4.3%;
+    /* #0B0B0B */
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 7%;
+    --card: 0 0% 6%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 7%;
+    --popover: 0 0% 6%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 20 100% 55%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 358 81.5% 38.2%;
+    /* #B11217 */
+    --primary-foreground: 0 0% 98%;
 
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 98%;
@@ -59,15 +62,15 @@
     --muted: 0 0% 12%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 0 0% 12%;
+    --accent: 358 81.5% 38.2%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 63% 31%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 20 100% 55%;
+    --ring: 358 81.5% 38.2%;
   }
 }
 

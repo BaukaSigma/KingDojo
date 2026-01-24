@@ -81,7 +81,7 @@ export function Coach() {
                             <span className="text-xs uppercase font-bold text-neutral-500 tracking-widest">Мастерская степень</span>
                         </motion.div>
                         <motion.div whileHover={{ scale: 1.02 }} className="bg-neutral-100 border border-neutral-200 p-6 rounded-xl text-center hover:bg-neutral-200/50 transition-colors">
-                            <span className="block text-5xl font-black text-primary mb-2">10+</span>
+                            <span className="block text-5xl font-black text-primary mb-2">12+</span>
                             <span className="text-xs uppercase font-bold text-neutral-500 tracking-widest">Лет опыта</span>
                         </motion.div>
                     </div>

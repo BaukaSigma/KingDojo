@@ -27,7 +27,7 @@ export function AdminSidebar() {
     };
 
     return (
-        <aside className="w-full md:w-64 bg-neutral-950 border-r border-neutral-800 flex flex-col h-screen sticky top-0">
+        <aside className="w-full md:w-64 bg-[#0B0B0B] border-r border-[#1a1a1a] flex flex-col h-screen sticky top-0">
             <div className="p-6 border-b border-neutral-800">
                 <Link href="/" className="block group">
                     <div className="text-xl font-black uppercase text-white tracking-widest group-hover:opacity-80 transition-opacity">
@@ -59,7 +59,7 @@ export function AdminSidebar() {
                 })}
             </nav>
 
-            <div className="p-4 border-t border-neutral-800 bg-neutral-950">
+            <div className="p-4 border-t border-[#1a1a1a] bg-[#0B0B0B]">
                 <Button
                     variant="ghost"
                     onClick={handleLogout}

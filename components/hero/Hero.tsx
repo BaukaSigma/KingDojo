@@ -18,92 +18,92 @@ export function Hero() {
     const y2 = useTransform(scrollY, [0, 500], [0, -150]);
 
     return (
-        <section ref={ref} className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black text-white">
-            {/* Parallax Background */}
-            <motion.div style={{ y: y1 }} className="absolute inset-0 z-0 scale-110">
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/90 z-10" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-black/20 to-black z-10" />
+        <section ref={ref} className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0B0B0B] text-white">
+            {/* Background Image with Diagonal Cut */}
+            <motion.div style={{ y: y1 }} className="absolute inset-0 z-0 scale-105">
                 <Image
-                    src={HERO_IMAGES[0]}
-                    alt="King Dojo Hero"
+                    src="/images/hero/hero-art-final.png"
+                    alt="Sanjar Kine - King Dojo"
                     fill
-                    className="object-cover opacity-90 grayscale-[30%] contrast-125 saturate-110"
+                    className="object-cover object-center opacity-80 grayscale-[20%] contrast-110 saturate-110"
                     priority
                 />
             </motion.div>
 
-            {/* Cinematic Grain & Grid */}
-            <div className="absolute inset-0 z-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay pointer-events-none" />
-            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+            {/* Brutalist Overlays */}
+            <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#0B0B0B] via-transparent to-[#0B0B0B]/40" />
+            <div className="absolute inset-0 z-10 bg-[linear-gradient(45deg,transparent_45%,#B11217_45%,#B11217_55%,transparent_55%)] opacity-20 mix-blend-overlay scale-150" />
+
+            {/* Diagonal Slash Overlay */}
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-[#0B0B0B]/20 to-[#0B0B0B]" />
 
             {/* Content */}
-            <div className="container relative z-20 flex flex-col items-center text-center px-4">
-                <motion.div
-                    style={{ y: y2 }}
-                    className="flex flex-col items-center"
-                >
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 100 }}
+            <div className="container relative z-20 flex flex-col items-center justify-center text-center px-4 h-full pt-20">
+                <motion.div style={{ y: y2 }} className="flex flex-col items-center">
+
+                    {/* Main Title - Massive & Brutal */}
+                    <motion.h1
+                        initial={{ opacity: 0, scale: 0.9, y: 50 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                        className="relative"
+                        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                        className="text-7xl md:text-9xl lg:text-[11rem] leading-[0.85] font-black uppercase tracking-tighter text-white mix-blend-screen relative"
                     >
-                        <h1 className="text-7xl md:text-9xl lg:text-[12rem] leading-none font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/10 drop-shadow-2xl">
-                            King Dojo
-                        </h1>
-                        <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: "100%" }}
-                            transition={{ delay: 1, duration: 1.5, ease: "easeInOut" }}
-                            className="absolute -bottom-4 left-0 h-1 bg-primary"
-                        />
-                    </motion.div>
+                        <span className="block relative z-10">King</span>
+                        <span className="block text-transparent text-stroke-2 opacity-50 absolute top-1 left-1 z-0" aria-hidden="true">King</span>
+                        <span className="block text-primary">Dojo</span>
+                    </motion.h1>
+
+                    {/* Subtitle / Philosophy */}
+                    <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: "200px" }}
+                        transition={{ delay: 0.8, duration: 1, ease: "circOut" }}
+                        className="h-2 bg-primary mt-8 mb-8 skew-x-[-20deg]"
+                    />
 
                     <motion.p
-                        className="mt-8 text-xl md:text-3xl text-white/80 font-light tracking-[0.2em] uppercase max-w-4xl"
+                        className="text-lg md:text-2xl text-neutral-300 font-bold tracking-[0.3em] uppercase max-w-2xl"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 1, delay: 0.8 }}
+                        transition={{ duration: 1, delay: 1 }}
                     >
-                        Путь <span className="text-primary font-bold">силы</span> • Дух <span className="text-primary font-bold">победы</span>
+                        Путь силы <span className="text-primary mx-2">•</span> Дух победы
                     </motion.p>
 
+                    {/* CTA Button - Sharp & Aggressive */}
                     <motion.div
-                        initial={{ opacity: 0, y: 50 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 1.2 }}
+                        transition={{ duration: 0.8, delay: 1.4 }}
                         className="mt-12"
                     >
                         <Button
                             size="lg"
-                            className="text-xl px-12 py-8 h-auto bg-primary hover:bg-white hover:text-black text-white uppercase tracking-widest font-black rounded-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(255,100,0,0.5)] skew-x-[-10deg] border-2 border-transparent hover:border-white"
+                            className="bg-primary hover:bg-[#D4151B] text-white text-xl px-16 py-8 h-auto uppercase tracking-widest font-black rounded-none skew-x-[-15deg] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(177,18,23,0.6)] border-l-4 border-white"
                             onClick={() => document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" })}
                         >
-                            <span className="skew-x-[10deg] flex items-center gap-2">
-                                Начать путь
-                                <motion.span
-                                    animate={{ x: [0, 5, 0] }}
-                                    transition={{ repeat: Infinity, duration: 1.5 }}
-                                >
-                                    →
-                                </motion.span>
-                            </span>
+                            <span className="skew-x-[15deg]">Начать путь</span>
                         </Button>
                     </motion.div>
                 </motion.div>
             </div>
 
-            {/* Animated Scroll Indicator */}
+            {/* Japanese Aesthetic Element - Vertical Text / Decor */}
+            <div className="absolute top-1/2 left-8 md:left-12 -translate-y-1/2 z-20 hidden lg:flex flex-col gap-4">
+                <div className="w-[1px] h-32 bg-white/20" />
+                <span className="text-white/40 [writing-mode:vertical-rl] text-xs tracking-[0.5em] uppercase font-light">The Way of Strength</span>
+                <div className="w-[1px] h-32 bg-white/20" />
+            </div>
+
+            {/* Scroll Indicator */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2, duration: 1 }}
-                className="absolute bottom-12 left-0 right-0 flex justify-center z-20"
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
             >
-                <div className="flex flex-col items-center gap-2">
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/50">Scroll</span>
-                    <div className="w-[1px] h-24 bg-gradient-to-b from-primary to-transparent" />
-                </div>
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">Scroll</span>
+                <div className="w-[2px] h-16 bg-gradient-to-b from-primary to-transparent" />
             </motion.div>
         </section>
     );
