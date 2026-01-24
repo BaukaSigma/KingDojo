@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { ShoppingBag, Newspaper, Trophy, Settings, LogOut } from "lucide-react";
+import { ShoppingBag, Newspaper, Trophy, Settings, LogOut, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
 const navItems = [
+    { name: "Тренеры", href: "/admin/coaches", icon: Users },
     { name: "Товары", href: "/admin/products", icon: ShoppingBag },
     { name: "Новости", href: "/admin/news", icon: Newspaper },
     { name: "Достижения", href: "/admin/achievements", icon: Trophy },

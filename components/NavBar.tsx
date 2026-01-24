@@ -12,7 +12,7 @@ const navLinks = [
     { href: "/#about", label: "О клубе" },
     { href: "/#approach", label: "Подход" },
     { href: "/schedule", label: "График" },
-    { href: "/#coach", label: "Тренер" },
+    { href: "/coaches", label: "Тренеры" },
     { href: "/news", label: "Новости" },
     { href: "/achievements", label: "Достижения" },
     { href: "/shop", label: "Магазин" },
