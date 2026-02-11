@@ -88,8 +88,8 @@ export function NewsClient({ initialNews }: NewsClientProps) {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-black text-white tracking-tight uppercase">Новости</h1>
-                    <p className="text-neutral-500">Manage news and updates</p>
+                    <h1 className="text-3xl font-black text-white tracking-tight uppercase">Мероприятия</h1>
+                    <p className="text-neutral-500">Управление мероприятиями</p>
                 </div>
                 <Link href="/admin/news/new">
                     <Button className="bg-primary hover:bg-primary/90 text-white font-bold">

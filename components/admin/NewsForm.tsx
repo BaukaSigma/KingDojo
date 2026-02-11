@@ -116,7 +116,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
                     <ChevronLeft className="h-4 w-4 mr-1" /> Back
                 </Button>
                 <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-neutral-500">
-                    {initialData ? "Edit News" : "Create News"}
+                    {initialData ? "Редактировать мероприятие" : "Новое мероприятие"}
                 </h1>
             </div>
 
@@ -129,7 +129,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
                                 name="title"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-neutral-400">Title</FormLabel>
+                                        <FormLabel className="text-neutral-400">Заголовок</FormLabel>
                                         <FormControl>
                                             <Input disabled={loading} {...field} className="bg-neutral-900 border-neutral-800 text-white" />
                                         </FormControl>
@@ -172,7 +172,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
                                 render={({ field }) => (
                                     <FormItem className="flex flex-row items-center justify-between rounded-lg border border-neutral-800 p-4 bg-neutral-900">
                                         <div className="space-y-0.5">
-                                            <FormLabel className="text-base text-neutral-200">Published</FormLabel>
+                                            <FormLabel className="text-base text-neutral-200">Опубликовано</FormLabel>
                                         </div>
                                         <FormControl>
                                             <Switch
@@ -244,7 +244,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
                         name="content"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel className="text-neutral-400">Content</FormLabel>
+                                <FormLabel className="text-neutral-400">Описание / Контент</FormLabel>
                                 <FormControl>
                                     <Textarea disabled={loading} {...field} className="bg-neutral-900 border-neutral-800 text-white min-h-[200px]" />
                                 </FormControl>
@@ -254,7 +254,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
                     />
 
                     <Button disabled={loading} className="w-full md:w-auto bg-primary text-white hover:bg-primary/90" type="submit">
-                        {initialData ? "Save Changes" : "Create News"}
+                        {initialData ? "Сохранить изменения" : "Создать мероприятие"}
                     </Button>
                 </form>
             </Form>

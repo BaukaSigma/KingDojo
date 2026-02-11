@@ -9,11 +9,11 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
     { href: "/", label: "Главная" },
-    { href: "/#about", label: "О клубе" },
-    { href: "/#approach", label: "Подход" },
+    { href: "/gallery", label: "Галерея" },
+    { href: "/students", label: "Ученики" },
     { href: "/schedule", label: "График" },
     { href: "/coaches", label: "Тренеры" },
-    { href: "/news", label: "Новости" },
+    { href: "/news", label: "Мероприятия" },
     { href: "/achievements", label: "Достижения" },
     { href: "/shop", label: "Магазин" },
     { href: "/#contacts", label: "Контакты" },

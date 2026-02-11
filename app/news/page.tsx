@@ -20,7 +20,7 @@ export default async function NewsPage() {
         <main className="min-h-screen bg-background text-foreground">
             <NavBar />
             <div className="pt-24 pb-12 container mx-auto px-4">
-                <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-12">Новости</h1>
+                <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-12">Мероприятия</h1>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {news?.map((item) => (
