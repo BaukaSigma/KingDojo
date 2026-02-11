@@ -52,7 +52,7 @@ export function GalleryContent({ items }: GalleryContentProps) {
                         {item.type === 'photo' ? (
                             <div className="aspect-[4/5] relative overflow-hidden">
                                 <SafeImage
-                                    src={item.image_url}
+                                    src={item.image_url ?? undefined}
                                     alt={item.title}
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -61,9 +61,9 @@ export function GalleryContent({ items }: GalleryContentProps) {
                             </div>
                         ) : (
                             <div className="aspect-video relative bg-black">
-                                {getYouTubeEmbed(item.video_url) ? (
+                                {getYouTubeEmbed(item.video_url ?? undefined) ? (
                                     <iframe
-                                        src={getYouTubeEmbed(item.video_url)}
+                                        src={getYouTubeEmbed(item.video_url ?? undefined) || undefined}
                                         title={item.title}
                                         className="absolute inset-0 w-full h-full"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
