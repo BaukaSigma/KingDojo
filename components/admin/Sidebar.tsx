@@ -42,9 +42,16 @@ export function AdminSidebar() {
     };
 
     const handleLogout = async () => {
-        await supabase.auth.signOut();
-        router.push("/admin/login");
-        router.refresh();
+        try {
+            await fetch("/api/admin/logout", { method: "POST" });
+            await supabase.auth.signOut(); // Keep supabase signout just in case
+            router.push("/admin/login");
+            router.refresh();
+        } catch (error) {
+            console.error("Logout error", error);
+            // Fallback redirect
+            router.push("/admin/login");
+        }
     };
 
     return (
