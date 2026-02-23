@@ -38,6 +38,9 @@ export function StudentForm({ initialData, initialAwards = [] }: StudentFormProp
         attended_classes: initialData?.attended_classes || 0,
         total_classes: initialData?.total_classes || 0,
         public_visible: initialData?.public_visible ?? true,
+        photo_pos_x: initialData?.photo_pos_x ?? 50,
+        photo_pos_y: initialData?.photo_pos_y ?? 50,
+        photo_scale: initialData?.photo_scale ?? 100,
     });
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,9 +140,19 @@ export function StudentForm({ initialData, initialAwards = [] }: StudentFormProp
                         <div className="col-span-2 md:col-span-2 space-y-4">
                             <Label className="text-white">Фото ученика</Label>
                             <div className="flex items-start gap-6">
-                                <div className="relative w-32 h-32 bg-black border-2 border-dashed border-neutral-700 rounded-full overflow-hidden flex items-center justify-center group hover:border-primary/50 transition-colors">
+                                <div className="relative w-32 h-32 bg-black border-2 border-dashed border-neutral-700 rounded-full overflow-hidden flex items-center justify-center shrink-0 group hover:border-primary/50 transition-colors">
                                     {previewUrl ? (
-                                        <Image src={previewUrl} alt="Preview" fill className="object-cover" />
+                                        <Image
+                                            src={previewUrl}
+                                            alt="Preview"
+                                            fill
+                                            className="object-cover"
+                                            style={{
+                                                objectPosition: `${formData.photo_pos_x}% ${formData.photo_pos_y}%`,
+                                                transformOrigin: `${formData.photo_pos_x}% ${formData.photo_pos_y}%`,
+                                                transform: `scale(${formData.photo_scale / 100})`
+                                            }}
+                                        />
                                     ) : (
                                         <ImagePlus className="w-8 h-8 text-neutral-700 group-hover:text-primary transition-colors" />
                                     )}
@@ -150,7 +163,7 @@ export function StudentForm({ initialData, initialAwards = [] }: StudentFormProp
                                         className="absolute inset-0 opacity-0 cursor-pointer"
                                     />
                                 </div>
-                                <div className="flex-1 pt-2">
+                                <div className="flex-1 w-full pt-2">
                                     <div className="flex items-center gap-4 mb-2">
                                         <Label htmlFor="public-visible" className="text-white cursor-pointer">Публичный профиль</Label>
                                         <Switch
@@ -159,9 +172,60 @@ export function StudentForm({ initialData, initialAwards = [] }: StudentFormProp
                                             onCheckedChange={(checked) => setFormData({ ...formData, public_visible: checked })}
                                         />
                                     </div>
-                                    <p className="text-xs text-neutral-500 mb-2">
+                                    <p className="text-xs text-neutral-500 mb-4">
                                         Если выключено, ученик не будет виден на сайте.
                                     </p>
+
+                                    {/* Position controls */}
+                                    {previewUrl && (
+                                        <div className="space-y-3 bg-neutral-900/50 p-4 rounded-lg border border-white/5 mb-4">
+                                            <Label className="text-xs text-neutral-400 uppercase tracking-widest block mb-2">Центровка фото</Label>
+                                            <div className="space-y-4">
+                                                <div className="flex items-center gap-3">
+                                                    <span className="text-xs text-neutral-500 w-4 font-mono">X:</span>
+                                                    <input
+                                                        type="range"
+                                                        min="0" max="100"
+                                                        value={formData.photo_pos_x}
+                                                        onChange={(e) => setFormData({ ...formData, photo_pos_x: Number(e.target.value) })}
+                                                        className="flex-1 accent-primary"
+                                                    />
+                                                </div>
+                                                <div className="flex items-center gap-3">
+                                                    <span className="text-xs text-neutral-500 w-4 font-mono">Y:</span>
+                                                    <input
+                                                        type="range"
+                                                        min="0" max="100"
+                                                        value={formData.photo_pos_y}
+                                                        onChange={(e) => setFormData({ ...formData, photo_pos_y: Number(e.target.value) })}
+                                                        className="flex-1 accent-primary"
+                                                    />
+                                                </div>
+                                                <div className="flex items-center gap-3">
+                                                    <span className="text-xs text-neutral-500 w-12 font-mono">Zoom:</span>
+                                                    <input
+                                                        type="range"
+                                                        min="50" max="300"
+                                                        value={formData.photo_scale}
+                                                        onChange={(e) => setFormData({ ...formData, photo_scale: Number(e.target.value) })}
+                                                        className="flex-1 accent-primary"
+                                                    />
+                                                </div>
+                                                <div className="flex justify-end pt-2 border-t border-white/5 mt-2">
+                                                    <Button
+                                                        type="button"
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={() => setFormData({ ...formData, photo_pos_x: 50, photo_pos_y: 50, photo_scale: 100 })}
+                                                        className="h-6 px-2 text-[10px] uppercase tracking-wider text-neutral-400 hover:text-white"
+                                                    >
+                                                        Сбросить параметры
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
                                     {previewUrl && (
                                         <Button
                                             type="button"

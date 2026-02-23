@@ -14,7 +14,8 @@ const navItems = [
     { name: "Галерея", href: "/admin/gallery", icon: ImageIcon },
     { name: "Ученики", href: "/admin/students", icon: GraduationCap },
     { name: "Товары", href: "/admin/products", icon: ShoppingBag },
-    { name: "Мероприятия", href: "/admin/news", icon: Newspaper }, // Renamed from News
+    { name: "Новости", href: "/admin/app_news", icon: Newspaper }, // Actual News
+    { name: "Мероприятия", href: "/admin/news", icon: Trophy }, // Repurposed News, icon changed to avoid duplicate Newspaper
     { name: "Достижения", href: "/admin/achievements", icon: Trophy },
     { name: "Настройки", href: "/admin/settings", icon: Settings },
 ];

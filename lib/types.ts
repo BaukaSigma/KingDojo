@@ -28,6 +28,9 @@ export interface Student {
     group_name: string | null;
     bio_short: string | null;
     photo_url: string | null;
+    photo_pos_x: number;
+    photo_pos_y: number;
+    photo_scale: number;
     rating_points: number;
     attended_classes: number;
     total_classes: number;

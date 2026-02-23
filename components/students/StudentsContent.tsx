@@ -155,6 +155,11 @@ export function StudentsContent({ students, awards }: StudentsContentProps) {
                                         alt={student.display_name}
                                         fill
                                         className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        style={{
+                                            objectPosition: `${student.photo_pos_x ?? 50}% ${student.photo_pos_y ?? 50}%`,
+                                            transformOrigin: `${student.photo_pos_x ?? 50}% ${student.photo_pos_y ?? 50}%`,
+                                            transform: `scale(${(student.photo_scale ?? 100) / 100})`
+                                        }}
                                     />
                                 ) : (
                                     <div className="absolute inset-0 flex items-center justify-center bg-neutral-800">

@@ -49,6 +49,11 @@ export default async function AdminStudentsPage() {
                                     alt={student.display_name}
                                     fill
                                     className="object-cover"
+                                    style={{
+                                        objectPosition: `${student.photo_pos_x ?? 50}% ${student.photo_pos_y ?? 50}%`,
+                                        transformOrigin: `${student.photo_pos_x ?? 50}% ${student.photo_pos_y ?? 50}%`,
+                                        transform: `scale(${(student.photo_scale ?? 100) / 100})`
+                                    }}
                                 />
                             ) : (
                                 <div className="absolute inset-0 flex items-center justify-center bg-neutral-900">

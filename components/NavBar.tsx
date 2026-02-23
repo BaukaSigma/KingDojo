@@ -13,6 +13,7 @@ const navLinks = [
     { href: "/students", label: "Ученики" },
     { href: "/schedule", label: "График" },
     { href: "/coaches", label: "Тренеры" },
+    { href: "/app_news", label: "Новости" },
     { href: "/news", label: "Мероприятия" },
     { href: "/achievements", label: "Достижения" },
     { href: "/shop", label: "Магазин" },
