@@ -89,13 +89,13 @@ export function ImageUpload({
             <div className="flex flex-wrap gap-4">
                 {value.map((url) => (
                     <div key={url} className="relative w-[200px] h-[200px] rounded-md overflow-hidden border border-neutral-800 bg-neutral-900 group">
-                        <div className="z-10 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="z-10 absolute top-2 right-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                             <Button
                                 type="button"
                                 onClick={() => handleRemove(url)}
                                 variant="destructive"
                                 size="icon"
-                                className="h-6 w-6"
+                                className="h-8 w-8 sm:h-6 sm:w-6"
                             >
                                 <X className="h-4 w-4" />
                             </Button>

@@ -4,12 +4,13 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export default async function EditCoachPage({ params }: { params: { id: string } }) {
+export default async function EditCoachPage({ params }: { params: Promise<{ id: string }> }) {
     const supabase = await createClient();
+    const { id } = await params;
     const { data: coach } = await supabase
         .from("coaches")
         .select("*")
-        .eq("id", params.id)
+        .eq("id", id)
         .single();
 
     if (!coach) {

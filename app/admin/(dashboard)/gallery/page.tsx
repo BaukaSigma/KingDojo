@@ -54,7 +54,7 @@ export default async function AdminGalleryPage() {
                                 <div className="absolute inset-0 flex items-center justify-center bg-neutral-900">
                                     <Video className="w-12 h-12 text-neutral-700" />
                                     {item.video_url && (
-                                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                                             <Play className="w-12 h-12 text-white fill-white" />
                                         </div>
                                     )}

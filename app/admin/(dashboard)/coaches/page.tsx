@@ -63,9 +63,9 @@ export default function AdminCoachesPage() {
                     {coaches.map((coach) => (
                         <div
                             key={coach.id}
-                            className="bg-neutral-900 border border-white/5 p-4 rounded-lg flex items-center gap-6 group hover:border-primary/50 transition-colors"
+                            className="bg-neutral-900 border border-white/5 p-4 rounded-lg flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 group hover:border-primary/50 transition-colors"
                         >
-                            <div className="relative w-24 h-24 bg-black rounded-md overflow-hidden shrink-0 border border-white/10">
+                            <div className="relative w-24 h-24 sm:w-20 sm:h-20 bg-black rounded-md overflow-hidden shrink-0 border border-white/10">
                                 {coach.image_url ? (
                                     <Image
                                         src={coach.image_url}
@@ -92,12 +92,12 @@ export default function AdminCoachesPage() {
                                 <p className="text-sm text-neutral-400 font-medium uppercase tracking-wide mb-1">
                                     {coach.role}
                                 </p>
-                                <p className="text-sm text-neutral-500 truncate">
+                                <p className="text-sm text-neutral-500 whitespace-pre-wrap break-words line-clamp-3">
                                     {coach.description}
                                 </p>
                             </div>
 
-                            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="flex items-center gap-2 mt-4 sm:mt-0 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                                 <Link href={`/admin/coaches/${coach.id}`}>
                                     <Button variant="ghost" size="icon" className="hover:text-primary hover:bg-primary/10">
                                         <Pencil className="w-4 h-4" />

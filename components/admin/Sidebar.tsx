@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { ShoppingBag, Newspaper, Trophy, Settings, LogOut, Users, Image as ImageIcon, GraduationCap, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
+import { ShoppingBag, Newspaper, Trophy, Settings, LogOut, Users, Image as ImageIcon, GraduationCap, ChevronLeft, ChevronRight, Menu, X, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
@@ -13,6 +13,7 @@ const navItems = [
     { name: "Тренеры", href: "/admin/coaches", icon: Users },
     { name: "Галерея", href: "/admin/gallery", icon: ImageIcon },
     { name: "Ученики", href: "/admin/students", icon: GraduationCap },
+    { name: "График", href: "/admin/schedules", icon: Clock },
     { name: "Товары", href: "/admin/products", icon: ShoppingBag },
     { name: "Новости", href: "/admin/app_news", icon: Newspaper }, // Actual News
     { name: "Мероприятия", href: "/admin/news", icon: Trophy }, // Repurposed News, icon changed to avoid duplicate Newspaper

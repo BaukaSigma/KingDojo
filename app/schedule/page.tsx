@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { formatWhatsAppLink } from "@/lib/utils";
 import { getSettings } from "@/lib/settings";
 import { MapPin, Clock, Zap, MessageCircle, ArrowRight } from "lucide-react";
-import Link from "next/link"; // Correct import for Link
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 
 export const revalidate = 60;
 
@@ -14,15 +15,16 @@ export default async function SchedulePage() {
     const settings = await getSettings();
     const whatsappLink = formatWhatsAppLink(settings?.social_links?.whatsapp);
 
-    const locations = [
+    const supabase = await createClient();
+    const { data: rawSchedules } = await supabase
+        .from('schedules')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order', { ascending: true });
+
+    // Static colors and benefits to cycle through (maintaining the requested design)
+    const staticStyles = [
         {
-            title: "Лесная Поляна",
-            subtitle: "Спортивный комплекс «Алан»",
-            days: "Понедельник / Среда / Пятница",
-            groups: [
-                { name: "Младшая группа", time: "20:00 – 21:00" },
-                { name: "Старшая группа", time: "20:30 – 22:00" }
-            ],
             benefits: [
                 "Развитие силы, выносливости и координации",
                 "Подготовка к соревнованиям и спаррингам",
@@ -32,14 +34,6 @@ export default async function SchedulePage() {
             borderColor: "border-blue-500/20"
         },
         {
-            title: "Баня Керемет",
-            subtitle: "Туран 19",
-            days: "Вторник / Четверг",
-            groups: [
-                { name: "Утренняя группа", time: "10:00 – 11:30" },
-                { name: "Вечерняя группа", time: "18:00 – 19:30" },
-                { name: "Поздняя группа", time: "19:30 – 21:00" }
-            ],
             benefits: [
                 "Индивидуальный подход",
                 "Развитие техники и реакции",
@@ -49,12 +43,6 @@ export default async function SchedulePage() {
             borderColor: "border-red-500/20"
         },
         {
-            title: "Школа РФМШ",
-            subtitle: "Секция Карате",
-            days: "Вторник / Четверг (16:00-17:00), Среда / Пятница (16:00-17:00)",
-            groups: [
-                { name: "Общая группа", time: "16:00 – 17:00" }
-            ],
             benefits: [
                 "Занятия для всех уровней",
                 "Основы карате и контроль техники",
@@ -64,6 +52,19 @@ export default async function SchedulePage() {
             borderColor: "border-amber-500/20"
         }
     ];
+
+    const locations = (rawSchedules || []).map((schedule: any, index: number) => {
+        const style = staticStyles[index % staticStyles.length]; // cycle styles if more than 3 schedules exist
+        return {
+            title: schedule.title,
+            subtitle: schedule.subtitle,
+            days: schedule.days,
+            groups: schedule.groups || [],
+            benefits: style.benefits,
+            color: style.color,
+            borderColor: style.borderColor
+        };
+    });
 
     return (
         <main className="min-h-screen bg-black text-white">
@@ -105,7 +106,7 @@ export default async function SchedulePage() {
                                             <div>
                                                 <p className="font-bold mb-2 uppercase text-sm">{loc.days}</p>
                                                 <div className="space-y-1">
-                                                    {loc.groups.map((g, idx) => (
+                                                    {loc.groups.map((g: any, idx: number) => (
                                                         <div key={idx} className="flex justify-between text-sm text-neutral-400">
                                                             <span>{g.name}:</span>
                                                             <span className="text-white font-mono">{g.time}</span>
@@ -117,7 +118,7 @@ export default async function SchedulePage() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        {loc.benefits.map((b, idx) => (
+                                        {loc.benefits.map((b: string, idx: number) => (
                                             <div key={idx} className="flex items-center gap-3 text-sm text-neutral-400">
                                                 <Zap className="w-4 h-4 text-primary/50 shrink-0" />
                                                 <span>{b}</span>

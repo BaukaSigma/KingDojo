@@ -46,3 +46,14 @@ export interface StudentAward {
     place?: number | null;
     created_at: string;
 }
+
+export interface Schedule {
+    id: string;
+    title: string;
+    subtitle: string;
+    days: string;
+    groups: { name: string; time: string }[];
+    is_active: boolean;
+    display_order: number;
+    created_at: string;
+}
