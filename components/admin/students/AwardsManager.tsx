@@ -9,6 +9,7 @@ import { Plus, Trash2, Medal, Loader2, Trophy } from "lucide-react";
 import { StudentAward } from "@/lib/types";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
+import { calculateStudentRating } from "@/lib/rating";
 
 interface AwardsManagerProps {
     studentId: string;
@@ -45,7 +46,16 @@ export function AwardsManager({ studentId, initialAwards }: AwardsManagerProps) 
 
             if (error) throw error;
 
-            setAwards([...awards, data as StudentAward]);
+            const updatedAwards = [...awards, data as StudentAward];
+            setAwards(updatedAwards);
+
+            // Re-calculate rating
+            const { data: student } = await supabase.from('students').select('*').eq('id', studentId).single();
+            if (student) {
+                const newRating = calculateStudentRating(student, updatedAwards);
+                await supabase.from('students').update({ rating_points: newRating }).eq('id', studentId);
+                // Need to tell parent to refresh data if it relies on it, or just let page refresh reload it
+            }
 
             // Reset form
             setTitle("");
@@ -63,14 +73,15 @@ export function AwardsManager({ studentId, initialAwards }: AwardsManagerProps) 
         if (!confirm("Удалить награду?")) return;
 
         try {
-            const { error } = await supabase
-                .from('student_awards')
-                .delete()
-                .eq('id', id);
+            const updatedAwards = awards.filter(a => a.id !== id);
+            setAwards(updatedAwards);
 
-            if (error) throw error;
-
-            setAwards(awards.filter(a => a.id !== id));
+            // Re-calculate rating
+            const { data: student } = await supabase.from('students').select('*').eq('id', studentId).single();
+            if (student) {
+                const newRating = calculateStudentRating(student, updatedAwards);
+                await supabase.from('students').update({ rating_points: newRating }).eq('id', studentId);
+            }
         } catch (error) {
             console.error("Error deleting award:", error);
             alert("Ошибка при удалении");

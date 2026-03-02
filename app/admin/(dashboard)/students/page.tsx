@@ -42,7 +42,7 @@ export default async function AdminStudentsPage() {
                         key={student.id}
                         className="bg-neutral-900/50 border border-white/5 rounded-xl overflow-hidden group hover:border-primary/50 transition-colors flex flex-col"
                     >
-                        <div className="relative h-48 bg-black">
+                        <div className="relative h-48 bg-black overflow-hidden">
                             {student.photo_url ? (
                                 <Image
                                     src={student.photo_url}

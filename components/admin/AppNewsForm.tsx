@@ -31,6 +31,9 @@ const formSchema = z.object({
     gallery: z.array(z.string()).optional(),
     is_published: z.boolean().default(false),
     published_at: z.string().optional(),
+    photo_pos_x: z.number().optional().default(50),
+    photo_pos_y: z.number().optional().default(50),
+    photo_scale: z.number().optional().default(100),
 });
 
 interface AppNewsFormProps {
@@ -48,7 +51,10 @@ export function AppNewsForm({ initialData }: AppNewsFormProps) {
         defaultValues: initialData ? {
             ...initialData,
             gallery: initialData.gallery || [],
-            published_at: initialData.published_at ? new Date(initialData.published_at).toISOString().slice(0, 16) : ""
+            published_at: initialData.published_at ? new Date(initialData.published_at).toISOString().slice(0, 16) : "",
+            photo_pos_x: initialData.photo_pos_x ?? 50,
+            photo_pos_y: initialData.photo_pos_y ?? 50,
+            photo_scale: initialData.photo_scale ?? 100,
         } : {
             title: "",
             slug: "",
@@ -58,6 +64,9 @@ export function AppNewsForm({ initialData }: AppNewsFormProps) {
             gallery: [],
             is_published: false,
             published_at: "",
+            photo_pos_x: 50,
+            photo_pos_y: 50,
+            photo_scale: 100,
         },
     });
 
@@ -190,35 +199,76 @@ export function AppNewsForm({ initialData }: AppNewsFormProps) {
                                     <FormItem>
                                         <FormLabel className="text-neutral-400">Обложка</FormLabel>
                                         <FormControl>
-                                            <ImageUpload
-                                                value={field.value ? [field.value] : []}
-                                                disabled={loading}
-                                                onChange={(url) => field.onChange(url[0])}
-                                            />
+                                            <div className="space-y-4">
+                                                <ImageUpload
+                                                    value={field.value ? [field.value] : []}
+                                                    disabled={loading}
+                                                    onChange={(url) => field.onChange(url[0])}
+                                                    imageStyle={{
+                                                        objectPosition: `${form.watch('photo_pos_x')}% ${form.watch('photo_pos_y')}%`,
+                                                        transformOrigin: `${form.watch('photo_pos_x')}% ${form.watch('photo_pos_y')}%`,
+                                                        transform: `scale(${form.watch('photo_scale') / 100})`
+                                                    }}
+                                                />
+                                                {field.value && (
+                                                    <div className="space-y-3 bg-neutral-900/50 p-4 rounded-lg border border-white/5 mt-4">
+                                                        <FormLabel className="text-xs text-neutral-400 uppercase tracking-widest block mb-2">Центровка обложки</FormLabel>
+                                                        <div className="space-y-4">
+                                                            <div className="flex items-center gap-3">
+                                                                <span className="text-xs text-neutral-500 w-4 font-mono">X:</span>
+                                                                <input
+                                                                    type="range"
+                                                                    min="0" max="100"
+                                                                    value={form.watch("photo_pos_x")}
+                                                                    onChange={(e) => form.setValue("photo_pos_x", Number(e.target.value))}
+                                                                    className="flex-1 accent-primary"
+                                                                />
+                                                            </div>
+                                                            <div className="flex items-center gap-3">
+                                                                <span className="text-xs text-neutral-500 w-4 font-mono">Y:</span>
+                                                                <input
+                                                                    type="range"
+                                                                    min="0" max="100"
+                                                                    value={form.watch("photo_pos_y")}
+                                                                    onChange={(e) => form.setValue("photo_pos_y", Number(e.target.value))}
+                                                                    className="flex-1 accent-primary"
+                                                                />
+                                                            </div>
+                                                            <div className="flex items-center gap-3">
+                                                                <span className="text-xs text-neutral-500 w-12 font-mono">Zoom:</span>
+                                                                <input
+                                                                    type="range"
+                                                                    min="50" max="300"
+                                                                    value={form.watch("photo_scale")}
+                                                                    onChange={(e) => form.setValue("photo_scale", Number(e.target.value))}
+                                                                    className="flex-1 accent-primary"
+                                                                />
+                                                            </div>
+                                                            <div className="flex justify-end pt-2 border-t border-white/5 mt-2">
+                                                                <Button
+                                                                    type="button"
+                                                                    variant="ghost"
+                                                                    size="sm"
+                                                                    onClick={() => {
+                                                                        form.setValue("photo_pos_x", 50);
+                                                                        form.setValue("photo_pos_y", 50);
+                                                                        form.setValue("photo_scale", 100);
+                                                                    }}
+                                                                    className="h-6 px-2 text-[10px] uppercase tracking-wider text-neutral-400 hover:text-white"
+                                                                >
+                                                                    Сбросить параметры
+                                                                </Button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
 
-                            <FormField
-                                control={form.control}
-                                name="gallery"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-neutral-400">Галерея</FormLabel>
-                                        <FormControl>
-                                            <ImageUpload
-                                                value={field.value || []}
-                                                disabled={loading}
-                                                multiple
-                                                onChange={(urls) => field.onChange(urls)}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
                         </div>
                     </div>
 

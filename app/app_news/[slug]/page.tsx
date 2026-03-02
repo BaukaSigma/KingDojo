@@ -37,6 +37,11 @@ export default async function AppNewsDetailPage({ params }: { params: Promise<{ 
                         alt={news.title}
                         fill
                         className="object-cover"
+                        style={{
+                            objectPosition: `${news.photo_pos_x ?? 50}% ${news.photo_pos_y ?? 50}%`,
+                            transformOrigin: `${news.photo_pos_x ?? 50}% ${news.photo_pos_y ?? 50}%`,
+                            transform: `scale(${(news.photo_scale ?? 100) / 100})`
+                        }}
                     />
                 </div>
 

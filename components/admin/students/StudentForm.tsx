@@ -12,6 +12,7 @@ import Image from "next/image";
 import { Student } from "@/lib/types";
 import { Switch } from "@/components/ui/switch";
 import { AwardsManager } from "./AwardsManager";
+import { calculateStudentRating } from "@/lib/rating";
 
 interface StudentFormProps {
     initialData?: Student | null;
@@ -103,11 +104,18 @@ export function StudentForm({ initialData, initialAwards = [] }: StudentFormProp
                 currentPhotoUrl = null;
             }
 
-            // Update record with final data (and photo url)
+            // Re-calculate rating internally based on attendance and current awards
+            const newRating = calculateStudentRating(
+                { ...initialData, ...formData }, // we need attendance from formData
+                initialAwards
+            );
+
+            // Update record with final data (and photo url, and auto-calculated rating)
             const { error: updateError } = await supabase
                 .from('students')
                 .update({
                     ...formData,
+                    rating_points: newRating,
                     photo_url: currentPhotoUrl
                 })
                 .eq('id', studentId!);
@@ -276,12 +284,13 @@ export function StudentForm({ initialData, initialAwards = [] }: StudentFormProp
                         </div>
 
                         <div className="col-span-2 md:col-span-1 space-y-2">
-                            <Label className="text-white">Рейтинг (Очки)</Label>
+                            <Label className="text-white">Рейтинг (Автоматически)</Label>
                             <Input
                                 type="number"
+                                disabled
                                 value={formData.rating_points}
-                                onChange={(e) => setFormData({ ...formData, rating_points: parseInt(e.target.value) || 0 })}
-                                className="bg-black border-white/10 text-white focus:border-primary"
+                                className="bg-neutral-900 border-white/10 text-neutral-500 cursor-not-allowed"
+                                title="Рейтинг рассчитывается автоматически на основе посещаемости и наград"
                             />
                         </div>
 
