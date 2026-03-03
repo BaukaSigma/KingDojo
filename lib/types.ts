@@ -32,6 +32,7 @@ export interface Student {
     photo_pos_y: number;
     photo_scale: number;
     rating_points: number;
+    points: number;
     attended_classes: number;
     total_classes: number;
     public_visible: boolean;

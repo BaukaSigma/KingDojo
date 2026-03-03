@@ -36,6 +36,7 @@ export function StudentForm({ initialData, initialAwards = [] }: StudentFormProp
         group_name: initialData?.group_name || "",
         bio_short: initialData?.bio_short || "",
         rating_points: initialData?.rating_points || 0,
+        points: initialData?.points || 0,
         attended_classes: initialData?.attended_classes || 0,
         total_classes: initialData?.total_classes || 0,
         public_visible: initialData?.public_visible ?? true,
@@ -311,6 +312,17 @@ export function StudentForm({ initialData, initialAwards = [] }: StudentFormProp
                                 value={formData.total_classes}
                                 onChange={(e) => setFormData({ ...formData, total_classes: parseInt(e.target.value) || 0 })}
                                 className="bg-black border-white/10 text-white focus:border-primary"
+                            />
+                        </div>
+
+                        <div className="col-span-2 md:col-span-1 space-y-2">
+                            <Label className="text-white">Баллы</Label>
+                            <Input
+                                type="number"
+                                value={formData.points}
+                                onChange={(e) => setFormData({ ...formData, points: parseInt(e.target.value) || 0 })}
+                                className="bg-black border-white/10 text-white focus:border-primary"
+                                placeholder="0"
                             />
                         </div>
 

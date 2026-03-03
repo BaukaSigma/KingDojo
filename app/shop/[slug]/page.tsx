@@ -11,13 +11,14 @@ export const revalidate = 60;
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
+    const decodedSlug = decodeURIComponent(slug);
     const supabase = await createClient();
 
     // Fetch product
     const { data: product } = await supabase
         .from("products")
         .select("*")
-        .eq("slug", slug)
+        .eq("slug", decodedSlug)
         .single();
 
     if (!product) {
@@ -59,8 +60,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                 title={product.title}
                                 price={product.price}
                                 slug={product.slug}
-                                whatsappPhone={settings?.whatsapp_phone}
-                                telegramUser={settings?.telegram_username}
+                                whatsappPhone={settings?.social_links?.whatsapp}
+                                telegramUser={settings?.social_links?.telegram}
                             />
                         </div>
                     </div>

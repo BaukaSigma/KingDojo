@@ -10,12 +10,13 @@ export const revalidate = 60;
 
 export default async function AchievementDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
+    const decodedSlug = decodeURIComponent(slug);
     const supabase = await createClient();
 
     const { data: achievement } = await supabase
         .from("achievements")
         .select("*")
-        .eq("slug", slug)
+        .eq("slug", decodedSlug)
         .single();
 
     if (!achievement) {

@@ -8,12 +8,13 @@ export const revalidate = 60;
 
 export default async function NewsDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
+    const decodedSlug = decodeURIComponent(slug);
     const supabase = await createClient();
 
     const { data: news } = await supabase
         .from("news")
         .select("*")
-        .eq("slug", slug)
+        .eq("slug", decodedSlug)
         .single();
 
     if (!news) {

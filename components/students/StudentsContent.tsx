@@ -5,6 +5,7 @@ import { Student, StudentAward } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { SafeImage } from "@/components/ui/image-placeholder";
 import { GraduationCap, Trophy, Search } from "lucide-react";
+import Link from "next/link";
 
 interface StudentsContentProps {
     students: Student[];
@@ -146,7 +147,7 @@ export function StudentsContent({ students, awards }: StudentsContentProps) {
                     const remainingAwards = studentAwards.length - 6;
 
                     return (
-                        <div key={student.id} className="group relative bg-neutral-900 border border-white/5 rounded-2xl overflow-hidden hover:border-primary/50 transition-colors animate-in fade-in zoom-in-95 duration-300 flex flex-col">
+                        <Link href={`/students/${student.id}`} key={student.id} className="group relative bg-neutral-900 border border-white/5 rounded-2xl overflow-hidden hover:border-primary/50 transition-colors animate-in fade-in zoom-in-95 duration-300 flex flex-col">
                             {/* Photo & Main Info */}
                             <div className="relative h-64 bg-black overflow-hidden">
                                 {student.photo_url ? (
@@ -191,15 +192,19 @@ export function StudentsContent({ students, awards }: StudentsContentProps) {
                                     </p>
                                 )}
 
-                                <div className="grid grid-cols-2 gap-3 mt-auto">
-                                    <div className="bg-black/40 p-2 rounded-lg border border-white/5">
-                                        <span className="block text-[10px] text-neutral-500 uppercase tracking-wider mb-1">Рейтинг</span>
-                                        <span className="text-xl font-black text-white">{student.rating_points}</span>
+                                <div className="grid grid-cols-3 gap-3 mt-auto">
+                                    <div className="bg-black/40 p-2 rounded-lg border border-white/5 flex flex-col justify-center">
+                                        <span className="block text-[9px] text-neutral-500 uppercase tracking-wider mb-1">Рейтинг</span>
+                                        <span className="text-lg font-black text-white leading-none">{student.rating_points}</span>
                                     </div>
-                                    <div className="bg-black/40 p-2 rounded-lg border border-white/5 relative overflow-hidden">
-                                        <span className="block text-[10px] text-neutral-500 uppercase tracking-wider mb-1">Посещаемость</span>
+                                    <div className="bg-black/40 p-2 rounded-lg border border-white/5 flex flex-col justify-center">
+                                        <span className="block text-[9px] text-neutral-500 uppercase tracking-wider mb-1">Баллы</span>
+                                        <span className="text-lg font-black text-primary leading-none">{student.points || 0}</span>
+                                    </div>
+                                    <div className="bg-black/40 p-2 rounded-lg border border-white/5 relative overflow-hidden flex flex-col justify-center">
+                                        <span className="block text-[9px] text-neutral-500 uppercase tracking-wider mb-1">Посещаемость</span>
                                         <div className="flex items-end gap-1">
-                                            <span className="text-xl font-black text-white">{attendancePercent}%</span>
+                                            <span className="text-lg font-black text-white leading-none">{attendancePercent}%</span>
                                         </div>
                                         {/* Simple progress bar background */}
                                         <div className="absolute bottom-0 left-0 h-1 bg-primary/20 w-full">
@@ -219,9 +224,9 @@ export function StudentsContent({ students, awards }: StudentsContentProps) {
                                                 <div
                                                     key={award.id}
                                                     className="w-8 h-8 flex items-center justify-center bg-black/40 rounded-full border border-white/5 text-lg cursor-help"
-                                                    title={`${medalEmoji[award.medal]} ${award.title}${award.place ? ` (${award.place} место)` : ''}`}
+                                                    title={`${medalEmoji[award.medal as keyof typeof medalEmoji]} ${award.title}${award.place ? ` (${award.place} место)` : ''}`}
                                                 >
-                                                    {medalEmoji[award.medal]}
+                                                    {medalEmoji[award.medal as keyof typeof medalEmoji]}
                                                 </div>
                                             ))}
                                             {remainingAwards > 0 && (
@@ -233,7 +238,7 @@ export function StudentsContent({ students, awards }: StudentsContentProps) {
                                     </div>
                                 )}
                             </div>
-                        </div>
+                        </Link>
                     );
                 })}
             </div>
