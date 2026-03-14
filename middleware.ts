@@ -1,29 +1,57 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { updateSession } from '@/lib/supabase/middleware'
 
-export async function middleware(request: NextRequest) {
-    const path = request.nextUrl.pathname;
-
-    // Admin Auth Protection
-    // Protect /admin routes, excluding /admin/login
-    // We do NOT exclude /api/* here because we want to allow public API access by default 
-    // (except maybe specific admin APIs, but user asked to exclude /api/* from this check)
-    // User instruction: "Матчеры: /admin/:path* исключить /admin/login и /api/*"
-    const isApi = path.startsWith("/api/");
-    const isAdmin = path.startsWith("/admin");
-    const isLogin = path.startsWith("/admin/login");
-
-    if (isAdmin && !isLogin && !isApi) {
-        const cookieName = process.env.ADMIN_COOKIE_NAME || "kingdojo_admin";
-        const adminCookie = request.cookies.get(cookieName);
-
-        if (!adminCookie) {
-            // Redirect to login if no cookie
-            return NextResponse.redirect(new URL("/admin/login", request.url));
+export function middleware(request: NextRequest) {
+    return new NextResponse(
+        `
+        <!DOCTYPE html>
+        <html lang="ru">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Hosting Suspended</title>
+            <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    background-color: black;
+                    color: red;
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                    text-align: center;
+                }
+                .container {
+                    padding: 20px;
+                }
+                h1 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    font-weight: 500;
+                }
+                p {
+                    font-size: 1.2rem;
+                    color: #fff;
+                    opacity: 0.8;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>Услуги хостинга приостановлены.</h1>
+                <p>Для восстановления доступа обратитесь к администратору (Error: Payment Required)</p>
+            </div>
+        </body>
+        </html>
+        `,
+        {
+            status: 402,
+            headers: {
+                'content-type': 'text/html; charset=utf-8',
+            },
         }
-    }
-
-    return await updateSession(request)
+    )
 }
 
 export const config = {
@@ -33,8 +61,8 @@ export const config = {
          * - _next/static (static files)
          * - _next/image (image optimization files)
          * - favicon.ico (favicon file)
-         * Feel free to modify this pattern to include more paths.
          */
-        '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+        '/((?!_next/static|_next/image|favicon.ico).*)',
     ],
 }
+
